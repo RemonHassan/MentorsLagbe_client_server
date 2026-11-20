@@ -35,7 +35,6 @@ const SignUpPage = () => {
     const formData = new FormData(event.currentTarget)
     const values = Object.fromEntries(formData.entries()) as {
       name: string
-      role: string
       email: string
       password: string
     }
