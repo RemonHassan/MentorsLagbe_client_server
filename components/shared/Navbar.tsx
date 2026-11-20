@@ -60,14 +60,14 @@ export default function NavBar() {
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href="/sign-in"
+            href="/signin"
             className="rounded-xl px-5 py-3 text-[13px] font-bold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#078CBF]"
           >
             Sign In
           </Link>
 
           <Link
-            href="/sign-up"
+            href="/signup"
             className="group relative flex items-center gap-2 overflow-hidden rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] px-5 py-3 text-[13px] font-bold text-white shadow-lg shadow-[#102B59]/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/20"
           >
             <span className="relative z-10">Get Started</span>

@@ -1,8 +1,8 @@
 import { betterAuth } from "better-auth"
 import { MongoClient } from "mongodb"
 import { mongodbAdapter } from "@better-auth/mongo-adapter"
-const client = new MongoClient("mongodb://localhost:27017/database")
-const db = client.db("mentorlagbe")
+const client = new MongoClient(process.env.MONGODB_URI as string)
+const db = client.db("mentorlagbedb")
 
 export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL,

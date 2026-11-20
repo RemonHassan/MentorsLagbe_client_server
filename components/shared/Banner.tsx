@@ -62,7 +62,7 @@ export default function Banner() {
             </Link>
 
             <Link
-              href="/sign-up"
+              href="/signup"
               className="group flex items-center justify-center gap-2 rounded-xl border border-[#CFE0F0] bg-white px-7 py-4 text-sm font-bold text-[#102B59] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#08B9DF] hover:bg-[#F0FAFF]"
             >
               Become a Tutor
