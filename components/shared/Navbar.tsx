@@ -8,7 +8,13 @@ import {
   GraduationCap,
   ArrowUpRight,
   ChevronRight,
+  LogOut,
+  User,
+  LayoutDashboard,
+  Mail,
+  ChevronDown,
 } from "lucide-react"
+import { authClient, signOut } from "@/lib/auth-client"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -20,6 +26,12 @@ const navLinks = [
 export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const { data: session } = authClient.useSession()
+  const handleSignOut = async () => {
+    await signOut()
+    window.location.reload()
+  }
+  console.log(session)
   return (
     <header className="sticky top-0 z-50 border-b border-[#E8EEF6] bg-white/90 backdrop-blur-2xl">
       <nav className="mx-auto flex h-20.5 max-w-350 items-center justify-between px-5 sm:px-8 xl:px-12">
@@ -59,24 +71,131 @@ export default function NavBar() {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 lg:flex">
-          <Link
-            href="/signin"
-            className="rounded-xl px-5 py-3 text-[13px] font-bold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#078CBF]"
-          >
-            Sign In
-          </Link>
+          <div className="hidden items-center gap-3 lg:flex">
+            {session?.user ? (
+              <details className="group relative">
+                {/* Trigger Pill */}
+                <summary className="flex cursor-pointer list-none items-center gap-3 rounded-2xl border border-[#D5EAF7] bg-white px-3 py-1.5 shadow-sm transition-all duration-300 hover:border-[#08B9DF]/50 hover:shadow-md [&::-webkit-details-marker]:hidden">
+                  {/* Initials Avatar */}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#102B59] to-[#087FAF] text-xs font-extrabold tracking-wide text-white shadow-sm">
+                    {session.user.name
+                      ? session.user.name
+                          .trim()
+                          .split(/\s+/)
+                          .slice(0, 2)
+                          .map((word) => word[0]?.toUpperCase())
+                          .join("")
+                      : "U"}
+                  </div>
 
-          <Link
-            href="/signup"
-            className="group relative flex items-center gap-2 overflow-hidden rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] px-5 py-3 text-[13px] font-bold text-white shadow-lg shadow-[#102B59]/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/20"
-          >
-            <span className="relative z-10">Get Started</span>
-            <ArrowUpRight
-              size={16}
-              className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-          </Link>
+                  {/* User Name & Role Badge */}
+                  <div className="flex flex-col pr-1 text-left">
+                    <span className="max-w-32.5 truncate text-[13px] font-bold text-[#102B59]">
+                      {session.user.name || "User"}
+                    </span>
+
+                    <span
+                      className={`mt-0.5 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase ${
+                        session.user.role === "admin"
+                          ? "bg-amber-100 text-amber-700"
+                          : session.user.role === "teacher"
+                            ? "bg-[#E4F8FE] text-[#087FAF]"
+                            : "bg-emerald-50 text-emerald-700"
+                      }`}
+                    >
+                      {session.user.role || "student"}
+                    </span>
+                  </div>
+
+                  <ChevronDown
+                    size={15}
+                    className="text-[#64748B] transition-transform duration-200 group-open:rotate-180 group-open:text-[#087FAF]"
+                  />
+                </summary>
+
+                {/* Dropdown Box */}
+                <div className="absolute right-0 z-50 mt-2.5 w-64 rounded-2xl border border-[#D5EAF7] bg-white p-2 shadow-xl shadow-[#102B59]/10">
+                  {/* User Details */}
+                  <div className="rounded-xl bg-[#F5F9FF] p-3.5">
+                    <p className="truncate text-sm font-extrabold text-[#102B59]">
+                      {session.user.name || "User"}
+                    </p>
+
+                    {session.user.email && (
+                      <div className="mt-1.5 flex items-center gap-1.5 text-xs text-[#64748B]">
+                        <Mail size={13} className="shrink-0 text-[#087FAF]" />
+                        <span className="truncate">{session.user.email}</span>
+                      </div>
+                    )}
+
+                    <span
+                      className={`mt-2.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wider uppercase ${
+                        session.user.role === "admin"
+                          ? "bg-amber-100 text-amber-700"
+                          : session.user.role === "teacher"
+                            ? "bg-[#E4F8FE] text-[#087FAF]"
+                            : "bg-emerald-50 text-emerald-700"
+                      }`}
+                    >
+                      {session.user.role || "student"}
+                    </span>
+                  </div>
+
+                  {/* Links */}
+                  <div className="mt-1.5 flex flex-col gap-0.5">
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-[13px] font-semibold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#087FAF]"
+                    >
+                      <LayoutDashboard size={16} className="text-[#087FAF]" />
+                      Dashboard
+                    </Link>
+
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-[13px] font-semibold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#087FAF]"
+                    >
+                      <User size={16} className="text-[#087FAF]" />
+                      My Profile
+                    </Link>
+                  </div>
+
+                  {/* Sign Out */}
+                  <div className="mt-1.5 border-t border-[#EDF3FA] pt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => handleSignOut()}
+                      className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-[13px] font-semibold text-rose-600 transition-colors hover:bg-rose-50"
+                    >
+                      <LogOut size={16} />
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              </details>
+            ) : (
+              <>
+                <Link
+                  href="/signin"
+                  className="rounded-xl px-5 py-3 text-[13px] font-bold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#078CBF]"
+                >
+                  Sign In
+                </Link>
+
+                <Link
+                  href="/signup"
+                  className="group relative flex items-center gap-2 overflow-hidden rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] px-5 py-3 text-[13px] font-bold text-white shadow-lg shadow-[#102B59]/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/20"
+                >
+                  <span className="relative z-10">Get Started</span>
+                  <ArrowUpRight
+                    size={16}
+                    className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                  <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                </Link>
+              </>
+            )}
+          </div>
         </div>
 
         {/* Mobile Toggle */}
