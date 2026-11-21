@@ -55,7 +55,7 @@ const menuItemsByRole: Record<Role, MenuItem[]> = {
     },
     {
       name: "Browse Tuitions",
-      url: "/dashboard/student/tuitions",
+      url: "/tuitions",
       icon: Search,
     },
     {

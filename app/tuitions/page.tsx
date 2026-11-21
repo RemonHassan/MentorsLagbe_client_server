@@ -1,4 +1,12 @@
-import { BookOpen, GraduationCap, Monitor, Sparkles, Star } from "lucide-react"
+import Link from "next/link"
+import {
+  ArrowLeft,
+  BookOpen,
+  GraduationCap,
+  Monitor,
+  Sparkles,
+  Star,
+} from "lucide-react"
 import { TuitionFilters } from "@/app/components/TuitionFilters"
 import { getTuitions } from "@/lib/api/tuition"
 import type { TuitionRow } from "../dashboard/teacher/tuitions/page"
@@ -22,6 +30,14 @@ const BrowseTuitions = async ({
   return (
     <main className="min-h-screen bg-[#F5F9FF] px-4 py-8 sm:px-8 sm:py-12">
       <div className="mx-auto max-w-6xl space-y-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm font-bold text-[#52627A] transition-colors hover:text-[#087FAF]"
+        >
+          <ArrowLeft size={16} />
+          Back to home
+        </Link>
+
         {/* Hero */}
         <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#102B59] via-[#174A85] to-[#087FAF] px-6 py-10 text-white shadow-xl shadow-[#102B59]/10 sm:px-10 sm:py-12">
           <div className="pointer-events-none absolute -top-24 -right-20 h-72 w-72 rounded-full bg-[#08B9DF]/20 blur-3xl" />
