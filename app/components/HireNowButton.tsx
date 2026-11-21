@@ -4,6 +4,7 @@ import { Button } from "@base-ui/react"
 import { CalendarDays } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { TuitionRow } from "../dashboard/teacher/tuitions/page"
+import { hireNow } from "@/lib/actions/applications"
 
 const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
   const { data: session } = useSession()
@@ -11,17 +12,24 @@ const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
   const tuitionId = tuition._id
   const user = session?.user
 
-  const handleHireNow = () => {
+  const handleHireNow = async () => {
     if (!user) {
       router.push(`/signin`)
       return
-    } else {
+    } else if (user.role === "student") {
       const application = {
         tuitionId: tuition._id,
         userId: user.id,
         email: user.email,
         tuitionTitle: tuition.title,
       }
+      const result = await hireNow(application)
+      if (result.insertedId) {
+        console.log("Application submitted")
+        router.push(`/tuitions`)
+      }
+    } else {
+      console.log("User is not a Student")
     }
   }
   return (
