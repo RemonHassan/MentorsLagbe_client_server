@@ -41,8 +41,6 @@ export function TuitionFilters({
     const formData = new FormData(event.currentTarget)
     const data = Object.fromEntries(formData.entries())
     console.log("form search data", data)
-    const search = data.searchField
-
     const params = new URLSearchParams()
     // params.set("search", search as string)
     // route.push(`/tuitions?${params.toString()}`)

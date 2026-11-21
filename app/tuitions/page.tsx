@@ -1,17 +1,8 @@
-import React from "react"
-import {
-  BookOpen,
-  Clock,
-  GraduationCap,
-  Layers,
-  Monitor,
-  Sparkles,
-  Star,
-} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { BookOpen, GraduationCap, Monitor, Sparkles, Star } from "lucide-react"
 import { TuitionFilters } from "@/app/components/TuitionFilters"
 import { getTuitions } from "@/lib/api/tuition"
 import type { TuitionRow } from "../dashboard/teacher/tuitions/page"
+import TuitionCard from "../components/TuitionCard"
 
 const BrowseTuitions = async ({
   searchParams,
@@ -106,58 +97,7 @@ const BrowseTuitions = async ({
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {tuitions.map((tuition) => (
-                <article
-                  key={tuition._id}
-                  className="group flex flex-col rounded-2xl border border-[#E2E9F3] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#08B9DF]/50 hover:shadow-xl hover:shadow-[#102B59]/10"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#102B59] to-[#087FAF] text-white shadow-md shadow-[#102B59]/20">
-                      <BookOpen size={20} />
-                    </span>
-                    <Badge className="rounded-full border-0 bg-[#E4F8FE] px-2.5 py-0.5 text-[10px] font-bold text-[#087FAF] capitalize">
-                      {String(tuition.subject)}
-                    </Badge>
-                  </div>
-
-                  <h3 className="mt-4 line-clamp-2 text-sm font-extrabold text-[#102B59]">
-                    {String(tuition.title)}
-                  </h3>
-                  <p className="mt-2 line-clamp-3 text-xs leading-5 text-[#64748B]">
-                    {String(tuition.description)}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="gap-1 rounded-full border-0 bg-[#F0F8FE] px-2.5 py-0.5 text-[10px] font-bold text-[#087FAF] capitalize"
-                    >
-                      <Layers size={11} />
-                      {String(tuition.level)}
-                    </Badge>
-                    <Badge
-                      variant="outline"
-                      className="gap-1 rounded-full border-[#D5E3F2] bg-white px-2.5 py-0.5 text-[10px] font-semibold text-[#52627A] capitalize"
-                    >
-                      <Monitor size={11} className="text-[#087FAF]" />
-                      {String(tuition.mode).replace("-", " ")}
-                    </Badge>
-                  </div>
-
-                  <div className="mt-5 flex items-center justify-between border-t border-[#EDF3FA] pt-4">
-                    <div>
-                      <p className="text-[10px] text-[#8493A8]">
-                        Price per hour
-                      </p>
-                      <p className="text-sm font-extrabold text-[#102B59]">
-                        ৳{String(tuition.price)}
-                      </p>
-                    </div>
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-[#52627A]">
-                      <Clock size={14} className="text-[#087FAF]" />
-                      {String(tuition.duration)} min
-                    </span>
-                  </div>
-                </article>
+                <TuitionCard key={tuition._id} tuition={tuition}></TuitionCard>
               ))}
             </div>
           )}
