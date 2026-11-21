@@ -16,17 +16,17 @@ import {
 } from "lucide-react"
 import { authClient, signOut } from "@/lib/auth-client"
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Browse Tuitions", href: "/tuitions" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "How It Works", href: "/about" },
-]
-
 export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const { data: session } = authClient.useSession()
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Browse Tuitions", href: "/tuitions" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "How It Works", href: "/about" },
+    { name: `Dashboard`, href: `/dashboard/${session?.user?.role}` },
+  ]
   const handleSignOut = async () => {
     await signOut()
     window.location.reload()
