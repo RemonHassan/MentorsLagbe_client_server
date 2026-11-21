@@ -8,7 +8,6 @@ import {
   Pencil,
   Plus,
   Sparkles,
-  Trash2,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -29,8 +28,9 @@ import {
 } from "@/components/ui/table"
 import type { TuitionInput } from "@/lib/actions/tuitions"
 import { getTuitions } from "@/lib/api/tuition"
+import { DeleteTuitionDialog } from "@/app/components/DeleteTuitionDialog"
 
-type TuitionRow = TuitionInput & { _id: string }
+export type TuitionRow = TuitionInput & { _id: string }
 
 const ManageTuitionsPage = async () => {
   const tuitions = await getTuitions()
@@ -40,7 +40,7 @@ const ManageTuitionsPage = async () => {
       <div className="mx-auto max-w-6xl space-y-6">
         <Card className="relative overflow-hidden rounded-3xl border border-[#DCE8F5] bg-white py-0 shadow-xl shadow-[#102B59]/5">
           {/* Top Brand Gradient Bar */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-[#102B59] via-[#087FAF] to-[#08B9DF]" />
+          <div className="h-1.5 w-full bg-linear-to-r from-[#102B59] via-[#087FAF] to-[#08B9DF]" />
 
           <CardHeader className="relative flex flex-col justify-between gap-5 border-b border-[#EDF3FA] bg-[#FAFCFF] px-6 pt-7 pb-6 sm:flex-row sm:items-center sm:px-8">
             <div className="pointer-events-none absolute -top-14 -right-14 h-44 w-44 rounded-full bg-[#08B9DF]/10 blur-2xl" />
@@ -67,7 +67,7 @@ const ManageTuitionsPage = async () => {
 
             <Link
               href="/dashboard/teacher/tuitions/new"
-              className="relative z-10 inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#102B59] to-[#087FAF] px-5 text-xs font-bold tracking-wide text-white shadow-lg shadow-[#102B59]/15 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/20"
+              className="relative z-10 inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] px-5 text-xs font-bold tracking-wide text-white shadow-lg shadow-[#102B59]/15 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/20"
             >
               <Plus size={16} />
               New tuition
@@ -89,7 +89,7 @@ const ManageTuitionsPage = async () => {
                 </p>
                 <Link
                   href="/dashboard/teacher/tuitions/new"
-                  className="mt-5 inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-[#102B59] to-[#087FAF] px-5 text-xs font-bold text-white shadow-md shadow-[#102B59]/15 transition-all hover:-translate-y-0.5"
+                  className="mt-5 inline-flex h-10 items-center gap-2 rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] px-5 text-xs font-bold text-white shadow-md shadow-[#102B59]/15 transition-all hover:-translate-y-0.5"
                 >
                   <Plus size={15} />
                   Create your first tuition
@@ -215,7 +215,9 @@ const ManageTuitionsPage = async () => {
                                 aria-label="Delete"
                                 className="h-8 w-8 rounded-lg border border-transparent text-[#52627A] transition-colors hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
                               >
-                                <Trash2 size={15} />
+                                <DeleteTuitionDialog
+                                  tuition={tuition}
+                                ></DeleteTuitionDialog>
                               </Button>
                             </div>
                           </TableCell>

@@ -34,15 +34,18 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { createTuition, type TuitionInput } from "@/lib/actions/tuitions"
+import { useRouter } from "next/navigation"
 
 const NewTuitionPage = () => {
+  const router = useRouter()
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget).entries())
-    console.log("New tuition data:", data)
 
     const result = await createTuition(data as TuitionInput)
-    console.log("Created data:", result)
+    if (result) {
+      router.push("/dashboard/teacher/tuitions")
+    }
   }
 
   return (
