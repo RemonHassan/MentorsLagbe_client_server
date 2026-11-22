@@ -12,7 +12,7 @@ import {
   Sparkles,
   XCircle,
 } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { StatusBadge } from "@/app/components/applications/StatusBadge"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
@@ -33,12 +33,6 @@ import type { ApplicationInput } from "@/lib/actions/applications"
 import { getApplication } from "@/lib/api/applications"
 
 export type Booking = ApplicationInput & { _id: string }
-
-const statusStyles: Record<string, string> = {
-  approved: "bg-emerald-50 text-emerald-700 border-emerald-100",
-  pending: "bg-[#E4F8FE] text-[#087FAF] border-[#CDEDF8]",
-  rejected: "bg-rose-50 text-rose-600 border-rose-100",
-}
 
 const formatDate = (value?: string) => {
   if (!value) return "—"
@@ -186,19 +180,7 @@ const myBookingsPage = async () => {
                           </p>
                         </TableCell>
                         <TableCell className="py-4">
-                          <Badge
-                            variant="outline"
-                            className={`gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold capitalize ${statusStyles[status] ?? "border-[#E2E9F3] bg-white text-[#52627A]"}`}
-                          >
-                            {status === "approved" ? (
-                              <CheckCircle2 size={11} />
-                            ) : status === "rejected" ? (
-                              <XCircle size={11} />
-                            ) : (
-                              <Clock size={11} />
-                            )}
-                            {status}
-                          </Badge>
+                          <StatusBadge status={status} />
                         </TableCell>
                         <TableCell className="py-4">
                           <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#52627A]">

@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import {
   BookOpen,
+  ClipboardList,
   Clock,
   Layers,
   Monitor,
@@ -203,6 +204,14 @@ const ManageTuitionsPage = async () => {
 
                           <TableCell className="py-4 pr-6 text-right sm:pr-8">
                             <div className="flex justify-end gap-1.5">
+                              <Link
+                                href={`/dashboard/teacher/tuitions/${tuition._id}/applications`}
+                                aria-label="View applications"
+                                title="View applications"
+                                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-[#52627A] transition-colors hover:border-[#D5EAF7] hover:bg-[#E4F8FE] hover:text-[#087FAF]"
+                              >
+                                <ClipboardList size={15} />
+                              </Link>
                               <Button
                                 variant="ghost"
                                 size="icon-sm"
