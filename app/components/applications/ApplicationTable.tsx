@@ -35,7 +35,7 @@ export function ApplicationTable({
 }: ApplicationTableProps) {
   return (
     <div className="overflow-x-auto">
-      <Table className="min-w-[720px]">
+      <Table className="min-w-180">
         <TableHeader className="bg-[#F7FBFF]">
           <TableRow className="border-b border-[#E5EFF9] hover:bg-transparent">
             <TableHead className="py-3.5 pl-6 text-[11px] font-extrabold tracking-wider text-[#52627A] uppercase sm:pl-8">
