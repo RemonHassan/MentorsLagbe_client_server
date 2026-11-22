@@ -12,10 +12,10 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      role: {
-        type: ["student", "teacher", "admin"],
+      requestedRole: {
+        type: "string",
+        required: false,
         input: true,
-        defaultValue: "student",
       },
     },
   },
@@ -26,6 +26,18 @@ export const auth = betterAuth({
     },
   },
   plugins: [admin({ defaultRole: "student" })],
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => ({
+          data: {
+            ...user,
+            role: user.requestedRole === "teacher" ? "teacher" : "student",
+          },
+        }),
+      },
+    },
+  },
   database: mongodbAdapter(db, {
     client,
   }),

@@ -39,7 +39,10 @@ const SignUpPage = () => {
       password: string
     }
     const { data, error } = await authClient.signUp.email({
-      ...values,
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      requestedRole: role === "teacher" ? "teacher" : "student",
     })
     if (data) {
       toast.add({
