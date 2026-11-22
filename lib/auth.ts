@@ -25,7 +25,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  plugins: [admin()],
+  plugins: [admin({ defaultRole: "student" })],
   database: mongodbAdapter(db, {
     client,
   }),

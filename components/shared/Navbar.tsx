@@ -25,7 +25,14 @@ export default function NavBar() {
     { name: "Browse Tuitions", href: "/tuitions" },
     { name: "Pricing", href: "/pricing" },
     { name: "How It Works", href: "/about" },
-    { name: `Dashboard`, href: `/dashboard/${session?.user?.role}` },
+    ...(session?.user
+      ? [
+          {
+            name: "Dashboard",
+            href: `/dashboard/${session.user.role || "student"}`,
+          },
+        ]
+      : []),
   ]
   const handleSignOut = async () => {
     await signOut()
@@ -144,7 +151,7 @@ export default function NavBar() {
                   {/* Links */}
                   <div className="mt-1.5 flex flex-col gap-0.5">
                     <Link
-                      href="/dashboard"
+                      href={`/dashboard/${session?.user?.role}`}
                       className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-[13px] font-semibold text-[#17345F] transition-colors hover:bg-[#F0F7FC] hover:text-[#087FAF]"
                     >
                       <LayoutDashboard size={16} className="text-[#087FAF]" />

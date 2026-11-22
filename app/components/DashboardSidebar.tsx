@@ -3,18 +3,14 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  BarChart3,
   BookMarked,
-  BookOpen,
   CalendarDays,
-  ClipboardList,
   GraduationCap,
   HomeIcon,
   LayoutDashboard,
   MessageSquare,
   Search,
   Settings,
-  ShieldCheck,
   Star,
   Users,
   Wallet,
@@ -142,31 +138,7 @@ const menuItemsByRole: Record<Role, MenuItem[]> = {
       url: "/dashboard/admin/users",
       icon: Users,
     },
-    {
-      name: "Tutors",
-      url: "/dashboard/admin/tutors",
-      icon: GraduationCap,
-    },
-    {
-      name: "Tuitions",
-      url: "/dashboard/admin/tuitions",
-      icon: BookOpen,
-    },
-    {
-      name: "Bookings",
-      url: "/dashboard/admin/bookings",
-      icon: ClipboardList,
-    },
-    {
-      name: "Reports",
-      url: "/dashboard/admin/reports",
-      icon: BarChart3,
-    },
-    {
-      name: "Moderation",
-      url: "/dashboard/admin/moderation",
-      icon: ShieldCheck,
-    },
+
     {
       name: "Settings",
       url: "/dashboard/admin/settings",
