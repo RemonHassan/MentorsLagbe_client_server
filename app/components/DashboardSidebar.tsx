@@ -8,12 +8,9 @@ import {
   GraduationCap,
   HomeIcon,
   LayoutDashboard,
-  MessageSquare,
   Search,
   Settings,
-  Star,
   Users,
-  Wallet,
   type LucideIcon,
 } from "lucide-react"
 import {
@@ -59,21 +56,6 @@ const menuItemsByRole: Record<Role, MenuItem[]> = {
       url: "/dashboard/student/bookings",
       icon: CalendarDays,
     },
-    {
-      name: "Messages",
-      url: "/dashboard/student/messages",
-      icon: MessageSquare,
-    },
-    {
-      name: "Reviews",
-      url: "/dashboard/student/reviews",
-      icon: Star,
-    },
-    {
-      name: "Settings",
-      url: "/dashboard/student/settings",
-      icon: Settings,
-    },
   ],
   teacher: [
     {
@@ -95,31 +77,6 @@ const menuItemsByRole: Record<Role, MenuItem[]> = {
       name: "Add Tuitions",
       url: "/dashboard/teacher/tuitions/new",
       icon: Users,
-    },
-    {
-      name: "Schedule",
-      url: "/dashboard/teacher/schedule",
-      icon: CalendarDays,
-    },
-    {
-      name: "Earnings",
-      url: "/dashboard/teacher/earnings",
-      icon: Wallet,
-    },
-    {
-      name: "Messages",
-      url: "/dashboard/teacher/messages",
-      icon: MessageSquare,
-    },
-    {
-      name: "Reviews",
-      url: "/dashboard/teacher/reviews",
-      icon: Star,
-    },
-    {
-      name: "Settings",
-      url: "/dashboard/teacher/settings",
-      icon: Settings,
     },
   ],
   admin: [

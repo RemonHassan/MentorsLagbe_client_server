@@ -86,7 +86,7 @@ const AboutPage = () => {
         <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-[#102B59] via-[#153E78] to-[#087FAF] px-6 py-11 text-white shadow-2xl shadow-[#102B59]/15 sm:px-12 sm:py-16">
           <div className="pointer-events-none absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#08B9DF]/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-[#08B9DF]/15 blur-3xl" />
-          <div className="pointer-events-none absolute top-8 right-12 hidden h-48 w-48 rounded-full border-[26px] border-white/[0.04] lg:block" />
+          <div className="pointer-events-none absolute top-8 right-12 hidden h-48 w-48 rounded-full border-26 border-white/4 lg:block" />
 
           <div className="relative z-10 max-w-3xl">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-[10.5px] font-extrabold tracking-[1.5px] text-white uppercase backdrop-blur-md">
