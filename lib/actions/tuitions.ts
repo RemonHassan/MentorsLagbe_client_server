@@ -1,7 +1,14 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4001"
 
 export type TuitionInput = Record<
-  "title" | "subject" | "level" | "mode" | "price" | "duration" | "description",
+  | "title"
+  | "subject"
+  | "level"
+  | "mode"
+  | "price"
+  | "duration"
+  | "description"
+  | "teacherId",
   FormDataEntryValue
 >
 

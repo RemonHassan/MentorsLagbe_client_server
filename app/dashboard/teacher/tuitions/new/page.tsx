@@ -35,14 +35,17 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { createTuition, type TuitionInput } from "@/lib/actions/tuitions"
 import { useRouter } from "next/navigation"
+import { useSession } from "@/lib/auth-client"
 
 const NewTuitionPage = () => {
+  const { data: session } = useSession()
+  const teacherId = session?.user.id
   const router = useRouter()
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget).entries())
 
-    const result = await createTuition(data as TuitionInput)
+    const result = await createTuition({ ...data, teacherId } as TuitionInput)
     if (result) {
       router.push("/dashboard/teacher/tuitions")
     }

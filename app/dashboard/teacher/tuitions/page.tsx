@@ -29,11 +29,13 @@ import {
 import type { TuitionInput } from "@/lib/actions/tuitions"
 import { getTuitions } from "@/lib/api/tuition"
 import { DeleteTuitionDialog } from "@/app/components/DeleteTuitionDialog"
+import { getSession } from "@/lib/core/server"
 
 export type TuitionRow = TuitionInput & { _id: string }
 
 const ManageTuitionsPage = async () => {
-  const tuitions = await getTuitions()
+  const session = await getSession()
+  const tuitions = await getTuitions(`teacherId=${session?.user.id}`)
 
   return (
     <div className="min-h-screen bg-[#F5F9FF] px-4 py-8 sm:px-8">
