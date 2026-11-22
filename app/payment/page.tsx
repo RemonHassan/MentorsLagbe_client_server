@@ -19,7 +19,18 @@ const benefits = [
   "Cancel anytime, no hidden fees",
 ]
 
-const PaymentPage = () => {
+const PaymentPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ canceled?: string }>
+}) => {
+  const { canceled } = await searchParams
+
+  if (canceled) {
+    console.log(
+      "Order canceled -- continue to shop around and check out when you're ready."
+    )
+  }
   return (
     <main className="min-h-screen bg-[#F5F9FF] px-4 py-8 sm:px-8 sm:py-12">
       <div className="mx-auto max-w-5xl space-y-6">
@@ -140,12 +151,18 @@ const PaymentPage = () => {
 
             <div className="mt-10">
               <Button className="group h-12 w-full rounded-xl bg-linear-to-r from-[#102B59] to-[#087FAF] text-sm font-bold text-white shadow-lg shadow-[#102B59]/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#087FAF]/25">
-                <LockKeyhole size={16} />
-                Pay with Stripe
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
+                <form action="/api/checkout_sessions" method="POST">
+                  <section>
+                    <button type="submit" role="link">
+                      <LockKeyhole size={16} />
+                      Pay with Stripe
+                      <ArrowRight
+                        size={16}
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                      />
+                    </button>
+                  </section>
+                </form>
               </Button>
 
               <p className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-[#8493A8]">

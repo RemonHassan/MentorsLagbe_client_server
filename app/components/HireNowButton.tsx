@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { TuitionRow } from "../dashboard/teacher/tuitions/page"
 import { hireNow } from "@/lib/actions/applications"
 import { getApplicationCount } from "@/lib/api/applications"
+import { getUserPremiumById } from "@/lib/api/user"
 
 const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
   const { data: session } = useSession()
@@ -19,10 +20,13 @@ const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
       router.push(`/signin`)
       return
     } else if (user.role === "student") {
+      // is premium
+      const premiumResult = await getUserPremiumById(user.id)
+      console.log("premium", premiumResult)
       // numbe of tuition applied by the student
 
       const countResult = await getApplicationCount(`applicantId=${user.id}`)
-      if (countResult.count >= 5) {
+      if (!premiumResult.premium && countResult.count >= 5) {
         router.push("/payment")
         return
       } else {
