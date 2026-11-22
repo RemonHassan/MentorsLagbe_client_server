@@ -434,7 +434,7 @@ const SignUpPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <button
+            {/* <button
               type="button"
               className="flex h-11 items-center justify-center gap-2 rounded-xl border border-[#E2E9F3] bg-white text-[13px] font-semibold text-[#17345F] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#08B9DF] hover:bg-[#F0FAFF] hover:shadow-md"
             >
@@ -442,7 +442,7 @@ const SignUpPage = () => {
                 G
               </span>
               Google
-            </button>
+            </button> */}
           </div>
 
           <p className="mt-8 text-center text-[13px] text-[#64748B]">
