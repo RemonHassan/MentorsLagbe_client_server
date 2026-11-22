@@ -24,3 +24,17 @@ export const hireNow = async (
   })
   return res.json()
 }
+
+export const UpdateApplicationStatus = async (
+  id: string,
+  data: { status: string }
+) => {
+  const res = await fetch(`${BASE_URL}/applications/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+  return res.json()
+}

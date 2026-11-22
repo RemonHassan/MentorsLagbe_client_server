@@ -96,7 +96,10 @@ export function ApplicationTable({
               )}
 
               <TableCell className="py-4">
-                <StatusBadge status={application.status} />
+                <StatusBadge
+                  status={application.status}
+                  applicationId={application._id}
+                />
               </TableCell>
 
               <TableCell className="hidden py-4 md:table-cell">

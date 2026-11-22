@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { UpdateApplicationStatus } from "@/lib/actions/applications"
 
 const statusStyles: Record<string, string> = {
   approved: "border-emerald-100 bg-emerald-50 text-emerald-700",
@@ -18,24 +19,39 @@ const statusStyles: Record<string, string> = {
 
 const StatusIcon = ({ status }: { status: string }) => {
   if (status === "approved")
-    return <CheckCircle2 size={11} className="!size-3" />
-  if (status === "rejected") return <XCircle size={11} className="!size-3" />
-  return <Clock size={11} className="!size-3" />
+    return <CheckCircle2 size={11} className="size-3!" />
+  if (status === "rejected") return <XCircle size={11} className="size-3!" />
+  return <Clock size={11} className="size-3!" />
 }
 
 type StatusBadgeProps = {
   status?: string
+  applicationId?: string
   onChange?: (status: string) => void
 }
 
-export function StatusBadge({ status, onChange }: StatusBadgeProps) {
+export function StatusBadge({
+  status,
+  applicationId,
+  onChange,
+}: StatusBadgeProps) {
   const value = String(status || "pending").toLowerCase()
+
+  const handleChangeStatus = async (nextStatus: string) => {
+    if (applicationId) {
+      const result = await UpdateApplicationStatus(applicationId, {
+        status: nextStatus,
+      })
+      console.log("Status updated:", result)
+    }
+    onChange?.(nextStatus)
+  }
 
   return (
     <Select
       defaultValue={value}
       onValueChange={(next) => {
-        if (next) onChange?.(next)
+        if (next) handleChangeStatus(next)
       }}
     >
       <SelectTrigger
