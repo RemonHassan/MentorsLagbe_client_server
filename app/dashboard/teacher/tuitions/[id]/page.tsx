@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { getApplicationsByTuition } from "@/lib/data/applications"
+import { getApplication } from "@/lib/api/applications"
 import { getTuitionById } from "@/lib/api/tuition"
 import type { TuitionRow } from "../page"
 
@@ -27,7 +27,7 @@ const TuitionDetailPage = async ({
 
   if (!tuition) notFound()
 
-  const applications = getApplicationsByTuition(id)
+  const applications = await getApplication(`tuitionId=${id}`)
 
   const details = [
     { label: "Subject", value: String(tuition.subject), icon: BookOpen },

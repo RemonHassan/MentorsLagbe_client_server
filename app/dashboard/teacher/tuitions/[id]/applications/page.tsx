@@ -11,7 +11,7 @@ import {
   XCircle,
 } from "lucide-react"
 import { ApplicationTable } from "@/app/components/applications/ApplicationTable"
-import { getApplicationsByTuition } from "@/lib/data/applications"
+import { getApplication } from "@/lib/api/applications"
 import { getTuitionById } from "@/lib/api/tuition"
 import type { TuitionRow } from "../../page"
 
@@ -25,7 +25,7 @@ const TuitionApplicationPage = async ({
 
   if (!tuition) notFound()
 
-  const applications = getApplicationsByTuition(id)
+  const applications = await getApplication(`tuitionId=${id}`)
   const pending = applications.filter((a) => a.status === "pending").length
   const approved = applications.filter((a) => a.status === "approved").length
   const rejected = applications.filter((a) => a.status === "rejected").length
