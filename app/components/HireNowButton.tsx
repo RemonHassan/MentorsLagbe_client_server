@@ -5,6 +5,7 @@ import { ArrowUpRight, CalendarDays } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { TuitionRow } from "../dashboard/teacher/tuitions/page"
 import { hireNow } from "@/lib/actions/applications"
+import { getApplicationCount } from "@/lib/api/applications"
 
 const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
   const { data: session } = useSession()
@@ -18,19 +19,27 @@ const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
       router.push(`/signin`)
       return
     } else if (user.role === "student") {
-      const application = {
-        tuitionId: tuition._id,
-        userId: user.id,
-        email: user.email,
-        tuitionTitle: tuition.title,
-        studentName: user.name, // nice for the tutor's inbox
-        status: "pending", // explicit initial state
-        createdAt: new Date().toISOString(),
-      }
-      const result = await hireNow(application)
-      if (result.insertedId) {
-        console.log("Application submitted")
-        router.push(`/tuitions`)
+      // numbe of tuition applied by the student
+
+      const countResult = await getApplicationCount(`applicantId=${user.id}`)
+      if (countResult.count >= 5) {
+        router.push("/payment")
+        return
+      } else {
+        const application = {
+          tuitionId: tuition._id,
+          userId: user.id,
+          email: user.email,
+          tuitionTitle: tuition.title,
+          studentName: user.name, // nice for the tutor's inbox
+          status: "pending", // explicit initial state
+          createdAt: new Date().toISOString(),
+        }
+        const result = await hireNow(application)
+        if (result.insertedId) {
+          console.log("Application submitted")
+          router.push(`/tuitions`)
+        }
       }
     } else {
       console.log("User is not a Student")
