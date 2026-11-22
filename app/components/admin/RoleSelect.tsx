@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { updateUserRole } from "@/lib/actions/users"
 
 const roleStyles: Record<string, string> = {
   admin: "border-[#D9E2F0] bg-[#102B59] text-white",
@@ -24,8 +25,14 @@ type RoleSelectProps = {
 export function RoleSelect({ role, userId, onChange }: RoleSelectProps) {
   const value = String(role || "student").toLowerCase()
 
-  const handleChangeRole = (nextRole: string) => {
-    console.log("Role change requested:", { userId, role: nextRole })
+  const handleChangeRole = async (nextRole: string) => {
+    if (!userId) return
+
+    const result = await updateUserRole(
+      userId,
+      nextRole as "student" | "teacher" | "admin"
+    )
+    console.log("Role updated:", result)
     onChange?.(nextRole)
   }
 
