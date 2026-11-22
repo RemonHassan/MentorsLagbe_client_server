@@ -22,7 +22,6 @@ const HireNowButton = ({ tuition }: { tuition: TuitionRow }) => {
     } else if (user.role === "student") {
       // is premium
       const premiumResult = await getUserPremiumById(user.id)
-      console.log("premium", premiumResult)
       // numbe of tuition applied by the student
 
       const countResult = await getApplicationCount(`applicantId=${user.id}`)
